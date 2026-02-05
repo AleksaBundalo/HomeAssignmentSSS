@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // A Post can have many Comments
+protected $fillable = ['user_id', 'title', 'content'];    
+//a post can have many comments
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    // A Post belongs to a User
+    //a post belongs to a user
     public function user()
     {
         return $this->belongsTo(User::class);
