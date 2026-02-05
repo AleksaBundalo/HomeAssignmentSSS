@@ -8,6 +8,4 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
 //should work as 7 different routes for posts (create, store, edit, update, etc.)
 Route::resource('posts', PostController::class);
-Route::get('/', function () {
-    return view('welcome');
-});
+

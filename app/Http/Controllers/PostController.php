@@ -40,9 +40,18 @@ public function store(Request $request)
     return redirect()->route('posts.index')->with('success', 'Post created successfully!');
 }
 
+public function show(string $id)
+    {
+        //finds the post by ID or shows 404
+        $post = Post::findOrFail($id);
+
+        //passes to show view
+        return view('posts.show', compact('post'));
+    }
+
 public function edit(string $id)
 {
-    //finds the post by ID
+    //finds the post by ID or shows 404
     $post = \App\Models\Post::findOrFail($id);
     
     //passes to edit view
