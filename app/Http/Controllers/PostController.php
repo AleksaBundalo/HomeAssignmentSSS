@@ -9,6 +9,15 @@ abstract class PostController
     return view('posts.create'); 
 }
 
+public function index()
+{
+    //fetch all posts from the database using the model
+    $posts = \App\Models\Post::latest()->get();
+
+    //pass the posts to the view
+    return view('posts.index', compact('posts'));
+}
+
 public function store(Request $request)
 {
 
