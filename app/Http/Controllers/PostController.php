@@ -33,17 +33,18 @@ public function store(Request $request)
     $validated = $request->validate([
         'title' => 'required|max:255',
         'content' => 'required',
-        'media_link' => 'nullable',
     ]);
 
     //saves the post using the user relationship
-    \App\Models\Post::create([
+    $post = \App\Models\Post::create([
         'user_id' => auth()->id(), //use id of who's currently logged in
         'title' => $validated['title'],
         'content' => $validated['content'],
     ]);
 
-    
+    $post->media_link = $request->media_link;
+    $post->save();
+
     return redirect()->route('posts.index')->with('success', 'Post created successfully!');
 }
 
@@ -74,7 +75,7 @@ public function update(Request $request, string $id)
 
     $post = \App\Models\Post::findOrFail($id);
     if ($post->user_id !== auth()->id()){
-        abort(403); //also makes sure that it's the correct user
+        abort(403, 'Unauthorized Action'); //also makes sure that it's the correct user
     }
     //validating that the post meets requirements
     $validated = $request->validate([
@@ -94,8 +95,13 @@ public function update(Request $request, string $id)
 public function destroy(string $id)
 {
     $post = \App\Models\Post::findOrFail($id);
+    if ($post->user_id !== auth()->id()){
+    abort(403, 'Unauthorized Action'); //also makes sure that it's the correct user, even though it should be hidden if you're not logged into the right account
+    }
     $post->delete();
 
     return redirect()->route('posts.index')->with('success', 'Post deleted!');
 }
+
+
 }

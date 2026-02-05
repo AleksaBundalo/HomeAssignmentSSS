@@ -68,7 +68,7 @@
             </div>
         </div>
     @empty
-        <p class="text-muted italic">No reviews shared yet. Be the first to drop a thought!</p>
+        <p class="text-muted italic">No comments yet. Be the first to drop a thought!</p>
     @endforelse
 
     <hr class="border-secondary my-5">

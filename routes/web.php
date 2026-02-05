@@ -22,3 +22,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//takes the user ID to filter post
+Route::get('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'profile'])->name('profile.show');
+
+//route to view own profile
+Route::get('/my-profile', [App\Http\Controllers\ProfileController::class, 'myProfile'])->name('profile.myProfile');
+
+//route to update bio
+Route::post('/profile/update-bio', [App\Http\Controllers\ProfileController::class, 'updateBio'])->name('profile.updateBio');

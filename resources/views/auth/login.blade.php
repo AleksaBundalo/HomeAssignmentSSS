@@ -5,7 +5,7 @@
     <div class="col-md-5">
         <div class="card shadow-lg border-secondary">
             <div class="card-header border-bottom border-secondary py-3 text-center" style="background-color: #1f1f1f;">
-                <h4 class="mb-0 fw-bold" style="color: #bb86fc;">🎙️ Access the Lab</h4>
+                <h4 class="mb-0 fw-bold" style="color: #bb86fc;">🎙️ Access the Vinylverse</h4>
             </div>
             <div class="card-body p-4 bg-dark">
                 <form method="POST" action="{{ route('login') }}">

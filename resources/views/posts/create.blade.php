@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">Create New Post</div>
-            <div class="card-body">
-                
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="form-studio-container">
+            <h2 class="neon-header mb-4 h3">Create New Post</h2>          
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul class="mb-0">
@@ -18,23 +17,24 @@
                 @endif
 
                 <form action="{{ route('posts.store') }}" method="POST">
-                    @csrf <div class="mb-3">
-                        <label class="form-label">Post Title</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                    @csrf 
+                    <div class="mb-4">
+                        <label class="form-studio-label">Post Title</label>
+                        <input type="text" name="title" class="form-control form-studio-input" placeholder="Enter title..." required>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Content</label>
-                        <textarea name="content" class="form-control" rows="5">{{ old('content') }}</textarea>
+                    <div class="mb-4">
+                        <label class="form-studio-label">Content</label>
+                        <textarea name="content" class="form-control form-studio-input" rows="6" placeholder="Break down the production, lyrics, and vibe..."></textarea>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label text-muted">Embed Track (Spotify, SoundCloud, or YouTube)</label>
+                    <div class="mb-5">
+                        <label class="form-studio-label">Embed Track (Spotify, SoundCloud, or YouTube)</label>
                         <input type="url" name="media_link" class="form-control" placeholder="https://open.spotify.com/track/..." value="{{ $post->media_link ?? '' }}">
                     </div>
-
-                    <button type="submit" class="btn btn-success">Save Post</button>
-                    <a href="{{ route('posts.index') }}" class="btn btn-secondary">Cancel</a>
+                    <div class="d-flex gap-3">
+                    <button type="submit" class="btn btn-studio-neon px-5">Publish Review</button>
+                    <a href="{{ route('posts.index') }}" class="btn btn-studio-outline">Cancel</a>
                 </form>
             </div>
         </div>
