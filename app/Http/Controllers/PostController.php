@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-abstract class PostController
+use Illuminate\Http\Request;
+use App\Models\Post;
+
+class PostController extends Controller
 {
     public function create()
 {
@@ -35,5 +38,39 @@ public function store(Request $request)
 
     
     return redirect()->route('posts.index')->with('success', 'Post created successfully!');
+}
+
+public function edit(string $id)
+{
+    //finds the post by ID
+    $post = \App\Models\Post::findOrFail($id);
+    
+    //passes to edit view
+    return view('posts.edit', compact('post'));
+}
+
+public function update(Request $request, string $id)
+{
+    //validating that the post meets requirements
+    $validated = $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+    ]);
+
+    $post = \App\Models\Post::findOrFail($id);
+    
+    //update record
+    $post->update($validated);
+
+    //redirect with success message
+    return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
+}
+
+public function destroy(string $id)
+{
+    $post = \App\Models\Post::findOrFail($id);
+    $post->delete();
+
+    return redirect()->route('posts.index')->with('success', 'Post deleted!');
 }
 }
