@@ -27,6 +27,12 @@ class User extends Authenticatable
     return $this->hasMany(Post::class);
     }
 
+    public function comments()
+{
+    //a user can also have many comments
+    return $this->hasMany(Comment::class);
+}
+
     /**
      * the attributes that should be hidden for serialization
      *
@@ -50,4 +56,3 @@ class User extends Authenticatable
         ];
     }
 }
-return $this->hasMany(Post::class);

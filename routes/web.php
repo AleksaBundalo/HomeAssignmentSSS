@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+
+//route for comments to work
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 //blog main page
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
