@@ -17,8 +17,9 @@ class CommentController extends Controller
 
         //create the comment linked to a specific post
         $post->comments()->create([
-            'user_id' => 1, //same id for testing
-            'body' => $request->body
+        'body' => $request->body,    
+        'user_id' => auth()->id() //dynamically assign author
+            
         ]);
 
         return back()->with('success', 'Comment added!');

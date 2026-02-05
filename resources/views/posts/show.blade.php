@@ -16,10 +16,11 @@
             <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary mt-3">Back to List</a>
             <hr>
             <h4>Comments</h4>
+            @auth
             @forelse($post->comments as $comment)
                 <div class="alert alert-light border shadow-sm py-2">
                     <p class="mb-0">
-                        <strong>{{ $comment->user?->name ?? 'Anonymous' }}:</strong> {{ $comment->body }}
+                        <strong>{{ $comment->user?->name ?? 'Anonymous' }}:</strong>
                         <small class="text-muted">({{ $comment->created_at->diffForHumans() }})</small>
                     </p>
                     <p class="mb-0">{{ $comment->body }}</p>
@@ -35,8 +36,11 @@
                 </div>
                 <button type="submit" class="btn btn-sm btn-primary">Post Comment</button>
             </form>
-            
+            @else
+            <div class="alert alert-secondary text-center">
+                Please <a href="{{ route('login') }}">login</a> to leave a comment.
         </div>
+        @endauth
     </div>
 </div>
 @endsection

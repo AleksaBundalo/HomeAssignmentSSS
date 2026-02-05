@@ -3,7 +3,13 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>All Blog Posts</h1>
+    @auth
     <a href="{{ route('posts.create') }}" class="btn btn-primary">Create New Post</a>
+    @else
+    <div class="alert alert-info">
+        Please <a href="{{route('login') }}">login</a> to share a post!
+</div>
+@endauth
 </div>
 
 @if(session('success'))
@@ -21,12 +27,14 @@
                     <p class="card-text">{{ Str::limit($post->content, 100) }}</p>
                     <div class="d-flex gap-2">
                         <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-info text-white">View</a>
+                        @if($post->user_id === auth()->id())
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        @endif
                         </form>
                     </div>
                 </div>

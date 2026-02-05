@@ -12,6 +12,12 @@ class PostController extends Controller
     return view('posts.create'); 
 }
 
+public function __construct()
+{
+    //you can only see index and show if you're not logged in
+    $this->middleware('auth')->except(['index', 'show']);
+}
+
 public function index()
 {
     //fetch all posts from the database using the model
@@ -31,7 +37,7 @@ public function store(Request $request)
 
     //saves the post using the user relationship
     \App\Models\Post::create([
-        'user_id' => 1, 
+        'user_id' => auth()->id(), //use id of who's currently logged in
         'title' => $validated['title'],
         'content' => $validated['content'],
     ]);
@@ -51,7 +57,10 @@ public function show(string $id)
 
 public function edit(string $id)
 {
-    //finds the post by ID or shows 404
+    if ($post->user_id !== auth()->id()) {
+        return redirect()->route('posts.index')->with('error', 'Unauthorized access!'); //if you're logged into a different account you shouldnt even see this but just in case its here
+    }
+//finds the post by ID or shows 404 (this will prob never be used but just in case)
     $post = \App\Models\Post::findOrFail($id);
     
     //passes to edit view
@@ -60,9 +69,12 @@ public function edit(string $id)
 
 public function update(Request $request, string $id)
 {
+    if ($post->user_id !== auth()->id()){
+        abort(403); //also makes sure that it's the correct user
+    }
     //validating that the post meets requirements
     $validated = $request->validate([
-        'title' => 'required|max:255',
+        'title' => 'required|max:100',
         'content' => 'required',
     ]);
 
