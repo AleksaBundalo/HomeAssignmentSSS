@@ -28,6 +28,11 @@
                         <textarea name="content" class="form-control" rows="5">{{ old('content') }}</textarea>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Embed Track (Spotify, SoundCloud, or YouTube)</label>
+                        <input type="url" name="media_link" class="form-control" placeholder="https://open.spotify.com/track/..." value="{{ $post->media_link ?? '' }}">
+                    </div>
+
                     <button type="submit" class="btn btn-success">Save Post</button>
                     <a href="{{ route('posts.index') }}" class="btn btn-secondary">Cancel</a>
                 </form>

@@ -13,36 +13,80 @@
     .text-muted { color: #b3b3b3 !important; }
     .alert-info { background-color: #2c2c2c; border-color: #bb86fc; color: #bb86fc; }
     input, textarea { background-color: #2c2c2c !important; color: white !important; border: 1px solid #444 !important; }
+    
+::placeholder {
+    color: #888 !important; 
+    opacity: 1; 
+}
+
+    .btn-studio-neon { 
+    background-color: #bb86fc; 
+    border: none; 
+    color: #121212; 
+    font-weight: 600; 
+    border-radius: 6px; 
+}
+
+.btn-studio-neon:hover { 
+    background-color: #9965f4; 
+    color: white; 
+}
+
+.btn-studio-outline { 
+    border: 1px solid #bb86fc; 
+    color: #bb86fc; 
+    background: transparent;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-studio-outline:hover { 
+    background: #bb86fc; 
+    color: #121212; 
+    box-shadow: 0 0 15px rgba(187, 134, 252, 0.4);
+}
+
+.btn-studio-danger {
+    background-color: #cf6679;
+    border: none;
+    color: #121212;
+    font-weight: 600;
+}
+
+.btn-studio-danger:hover {
+    background-color: #b00020;
+    color: white;
+}
 </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('posts.index') }}">BlogSys</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="{{ route('posts.index') }}">Home</a>
-            
-            @guest
-                <a class="nav-link" href="{{ route('register') }}">Register</a>
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
-            @else
-                <a class="nav-link" href="{{ route('posts.create') }}">Create Post</a>
-                <span class="navbar-text ms-3 text-info">
-                    Hello, {{ Auth::user()->name }}
-                </span>
-            @endguest
-            @auth
-            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                @csrf
-                <button type="submit" class="btn btn-link nav-link">Logout</button>
-            </form>
-            @endauth
+        <a class="navbar-brand fw-bold" href="{{ route('posts.index') }}">
+        <span style="color: #bb86fc;">💿</span> Vinylverse
+        <div class="navbar-nav ms-auto align-items-center">
+                <a class="nav-link px-3" href="{{ route('posts.index') }}">Discover</a>
+                @guest
+                    <a class="nav-link px-3" href="{{ route('login') }}">Sign In</a>
+                    <a class="btn btn-primary btn-sm ms-2" href="{{ route('register') }}">Join the Lab</a>
+                @else
+                    <a class="nav-link text-info px-3" href="#">Hello, {{ Auth::user()->name }}</a>
+                    <a class="btn btn-outline-light btn-sm mx-2" href="{{ route('posts.create') }}">Write Review</a>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link p-0" style="font-size: 0.9rem;">Logout</button>
+                    </form>
+                @endguest
         </div>
     </div>
 </nav>
 
-    <div class="container">
+    <main class="container">
         @yield('content')
-    </div>
+    </main>
+
+    <footer class="mt-auto py-3 text-center text-muted border-top border-secondary" style="background: #1f1f1f;">
+        <small>&copy; 2026 Vinylverse</small>
+    </footer>
 </body>
 </html>

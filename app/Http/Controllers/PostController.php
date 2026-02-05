@@ -33,6 +33,7 @@ public function store(Request $request)
     $validated = $request->validate([
         'title' => 'required|max:255',
         'content' => 'required',
+        'media_link' => 'nullable',
     ]);
 
     //saves the post using the user relationship
@@ -57,18 +58,21 @@ public function show(string $id)
 
 public function edit(string $id)
 {
-    if ($post->user_id !== auth()->id()) {
+    //finds the post by ID or shows 404 (this will prob never be used but just in case)
+    $post = \App\Models\Post::findOrFail($id);    
+
+if ($post->user_id !== auth()->id()) {
         return redirect()->route('posts.index')->with('error', 'Unauthorized access!'); //if you're logged into a different account you shouldnt even see this but just in case its here
     }
-//finds the post by ID or shows 404 (this will prob never be used but just in case)
-    $post = \App\Models\Post::findOrFail($id);
-    
+
     //passes to edit view
     return view('posts.edit', compact('post'));
 }
 
 public function update(Request $request, string $id)
 {
+
+    $post = \App\Models\Post::findOrFail($id);
     if ($post->user_id !== auth()->id()){
         abort(403); //also makes sure that it's the correct user
     }
@@ -77,8 +81,8 @@ public function update(Request $request, string $id)
         'title' => 'required|max:100',
         'content' => 'required',
     ]);
-
-    $post = \App\Models\Post::findOrFail($id);
+    
+    $post->media_link = $request->media_link;
     
     //update record
     $post->update($validated);

@@ -1,38 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-success text-white">Login to BlogSys</div>
-                <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('login') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label>Email Address</label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">Login</button>
-                    </form>
-                    <div class="mt-3 text-center">
-                        <a href="{{ route('register') }}">Don't have an account? Register here.</a>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow-lg border-secondary">
+            <div class="card-header border-bottom border-secondary py-3 text-center" style="background-color: #1f1f1f;">
+                <h4 class="mb-0 fw-bold" style="color: #bb86fc;">🎙️ Access the Lab</h4>
+            </div>
+            <div class="card-body p-4 bg-dark">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="artist@vinylverse.com"  required>
                     </div>
-                </div>
+                    <div class="mb-4">
+                        <label class="form-label text-muted small">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-studio-neon w-100 py-2 mb-3">Sign in</button>
+                    <div class="text-center">
+                        <a href="{{ route('register') }}" class="text-info small text-decoration-none">New critic? Register here.</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
