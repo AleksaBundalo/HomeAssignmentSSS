@@ -6,7 +6,8 @@
         <div class="card-body p-4">
             <h1 class="display-4 fw-bold" style="color: #bb86fc;">{{ $post->title }}</h1>
             <p class="text-muted mb-4">
-                By <strong style="color: #bb86fc;">{{ $post->user->name }}</strong>
+                By <a href="{{ route('profile.show', $post->user->id) }}" class="text-purple fw-bold text-decoration-none studio-link">
+                    {{ $post->user->name }}</strong>
                 on {{ $post->created_at->format('M d, Y') }}</p>
                 at {{ $post->created_at->format('H:i') }}
             <hr>
